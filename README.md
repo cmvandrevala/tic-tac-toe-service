@@ -1,24 +1,15 @@
-# README
+# Tic-Tac-Toe Service
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Build Status](https://travis-ci.org/cmvandrevala/tic-tac-toe-service.svg?branch=master)](https://travis-ci.org/cmvandrevala/tic-tac-toe-service)
 
-Things you may want to cover:
+## Background
 
-* Ruby version
+This is a toy application that I will use to learn about SOA during my apprenticeship at 8th Light. The Rails app will serve different types of data to various clients in a JSON format.
 
-* System dependencies
+## Testing
 
-* Configuration
+This project uses rspec as its test suite. You can run the test suite using the command:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+bundle exec rspec spec
+```
