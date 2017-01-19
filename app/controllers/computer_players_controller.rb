@@ -1,5 +1,13 @@
 class ComputerPlayersController < ApplicationController
+  include ComputerPlayer
+
   def get_move
-    render json: 'foo'
+    if params[:board].blank?
+      nil
+    else
+      hash = parse_json(params[:board])
+      render json: {"move": move(hash)}
+    end
   end
+
 end
