@@ -1,2 +1,8 @@
 language: ruby
+services:
+  - postgresql
+before_script:
+  - cp -f config/database.yml.travis config/database.yml
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
 script: bundle exec rspec spec

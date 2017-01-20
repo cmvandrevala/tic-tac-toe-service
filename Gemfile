@@ -10,6 +10,7 @@ end
 gem 'pg'
 gem 'puma', '~> 3.0'
 gem 'rails', '~> 5.0.1'
+gem 'rake'
 
 group :development do
   gem 'listen', '~> 3.0.5'
