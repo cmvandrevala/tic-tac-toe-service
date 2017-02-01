@@ -29,6 +29,16 @@ describe StatisticsController do
       expect(response.body).to include ",\"query_params\":\"foo2\",\"ip_address\":\"bar2\",\"returned_move\":\"baz2\"}"
     end
 
+    it "returns many items" do
+      MoveRequest.new(query_params: "foo1", ip_address: "bar1", returned_move: "baz1").save
+      MoveRequest.new(query_params: "foo2", ip_address: "bar2", returned_move: "baz2").save
+      MoveRequest.new(query_params: "foo3", ip_address: "bar3", returned_move: "baz3").save
+      get :get_statistics
+      expect(response.body).to include ",\"query_params\":\"foo1\",\"ip_address\":\"bar1\",\"returned_move\":\"baz1\"}"
+      expect(response.body).to include ",\"query_params\":\"foo2\",\"ip_address\":\"bar2\",\"returned_move\":\"baz2\"}"
+      expect(response.body).to include ",\"query_params\":\"foo3\",\"ip_address\":\"bar3\",\"returned_move\":\"baz3\"}"
+    end
+
   end
 
 end

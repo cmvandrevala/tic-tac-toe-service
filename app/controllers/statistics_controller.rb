@@ -1,7 +1,9 @@
 class StatisticsController < ApplicationController
 
   def get_statistics
-    statistics = MoveRequest.all.to_json
+    sql = "SELECT * FROM move_requests;"
+    records_array = ActiveRecord::Base.connection.execute(sql)
+    statistics = records_array.to_json
     render json: "{\"statistics\": #{statistics}}"
   end
 
