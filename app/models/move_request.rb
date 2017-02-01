@@ -1,0 +1,2 @@
+class MoveRequest < ApplicationRecord
+end
