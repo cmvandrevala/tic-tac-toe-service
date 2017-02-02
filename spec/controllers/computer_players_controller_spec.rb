@@ -44,17 +44,15 @@ describe ComputerPlayersController do
     context 'writing to the database' do
 
       it 'does not write to the database if no query params are given' do
-        sql = "SELECT * FROM move_requests"
-        pg_response = ActiveRecord::Base.connection.execute(sql)
         get :get_move
-        moves = MoveRequest.all
+        moves = MoveRequest.retrieve_all_data
         expect(moves.length).to eq 0
       end
 
       it 'writes a record to the database after the response is sent' do
         user_params = {board: '{"moves": [{"player_one":"5"}, {"player_two":"0"}]}'}
         get :get_move, params: user_params
-        moves = MoveRequest.all
+        moves = MoveRequest.retrieve_all_data
         expect(moves.length).to eq 1
       end
 
