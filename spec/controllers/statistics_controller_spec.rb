@@ -6,7 +6,7 @@ describe StatisticsController do
 
     it "returns an empty object if there is no data in the database" do
       get :running_log
-      expect(response.body).to eq "{\"statistics\": []}"
+      expect(response.body).to eq "{\"log\": []}"
     end
 
     it "returns a single item in the database" do

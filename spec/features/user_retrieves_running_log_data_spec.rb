@@ -4,7 +4,7 @@ feature "user retrieves running log data" do
     visit '/api/running_log'
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"statistics\": []}"
+    expect(page.body).to eq "{\"log\": []}"
   end
 
   scenario "there is one row in the database" do

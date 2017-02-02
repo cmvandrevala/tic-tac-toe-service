@@ -36,7 +36,7 @@ describe MoveRequest do
       expect(MoveRequest.retrieve_all_data).to eq []
     end
 
-    it "it adds a new row with data to the database" do
+    it "adds a new row with data to the database" do
       MoveRequest.add_new_row("foo", "bar", "baz", "quo")
       expect(MoveRequest.exists?(query_params: 'foo')).to be_truthy
       expect(MoveRequest.exists?(ip_address: "bar")).to be_truthy
@@ -44,16 +44,35 @@ describe MoveRequest do
       expect(MoveRequest.exists?(client_name: "quo")).to be_truthy
     end
 
-    it "it returns two values if the database has two rows" do
+    it "returns two values if the database has two rows" do
       MoveRequest.add_new_row("foo", "bar", "baz", "quo")
       MoveRequest.add_new_row("xyz", "abc", "123", "qwe")
       expect(MoveRequest.retrieve_all_data.length).to eq 2
     end
 
-    it "the returned resuls are identical to ActiveRecord's #all method" do
+    it "returns results identical to ActiveRecord's #all method" do
       MoveRequest.add_new_row("foo", "bar", "baz", "foo")
       MoveRequest.add_new_row("quo", "abc", "123", "qwerty")
       expect(MoveRequest.retrieve_all_data).to eq MoveRequest.all
+    end
+
+  end
+
+  describe "#endpoints_hit" do
+
+    it "returns no data if there are no endpoints hit" do
+      expect(MoveRequest.endpoints_hit.length).to eq 0
+    end
+
+    it "returns the count of one client" do
+      MoveRequest.add_new_row("foo", "bar", "baz", "quo")
+      expect(MoveRequest.endpoints_hit.length).to eq 1
+    end
+
+    it "returns the count of two clients" do
+      MoveRequest.add_new_row("foo", "bar", "baz", "quo")
+      MoveRequest.add_new_row("foo", "bar", "baz", "quib")
+      expect(MoveRequest.endpoints_hit.length).to eq 2
     end
 
   end

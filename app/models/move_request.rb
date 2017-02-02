@@ -19,4 +19,14 @@ class MoveRequest < ApplicationRecord
     ActiveRecord::Base.connection.execute(sql)
   end
 
+  def self.endpoints_hit
+    output = []
+    sql = "SELECT client_name, COUNT(*) FROM move_requests GROUP BY client_name"
+    pg_result = ActiveRecord::Base.connection.execute(sql)
+    fields = pg_result.fields
+    pg_result.values.map do |value_set|
+      MoveRequest.instantiate(Hash[fields.zip(value_set)])
+    end
+  end
+
 end
