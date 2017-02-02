@@ -5,4 +5,8 @@ class StatisticsController < ApplicationController
     render json: "{\"statistics\": #{statistics}}"
   end
 
+  def endpoints_hit
+    render json: "{\"endpoints\": []}"
+  end
+
 end
