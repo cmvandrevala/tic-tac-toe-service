@@ -5,19 +5,19 @@ class ComputerPlayersController < ApplicationController
   after_action :add_record_to_database
 
   def computer_move
-    render json: {"move": computed_move} unless no_query_params?
+    render json: {"move": computed_move} if query_params?
   end
 
   private
 
   def add_record_to_database
-    unless no_query_params?
+    if query_params?
       MoveRequest.add_new_row(params[:board], request.remote_ip, computed_move)
     end
   end
 
-  def no_query_params?
-    params[:board].blank?
+  def query_params?
+    !params[:board].blank?
   end
 
   def computed_move
