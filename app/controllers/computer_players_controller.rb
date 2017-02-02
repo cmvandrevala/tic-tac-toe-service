@@ -4,7 +4,7 @@ class ComputerPlayersController < ApplicationController
   include ComputerPlayer
   after_action :add_record_to_database
 
-  def get_move
+  def computer_move
     render json: {"move": computed_move} unless no_query_params?
   end
 
