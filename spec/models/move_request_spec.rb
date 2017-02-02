@@ -25,4 +25,8 @@ describe MoveRequest do
 
   end
 
+  describe "custom all" do
+
+  end
+
 end

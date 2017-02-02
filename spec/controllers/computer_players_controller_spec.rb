@@ -44,6 +44,8 @@ describe ComputerPlayersController do
     context 'writing to the database' do
 
       it 'does not write to the database if no query params are given' do
+        sql = "SELECT * FROM move_requests"
+        pg_response = ActiveRecord::Base.connection.execute(sql)
         get :get_move
         moves = MoveRequest.all
         expect(moves.length).to eq 0
