@@ -31,21 +31,11 @@ describe MoveRequest do
       expect(MoveRequest.retrieve_all_data).to eq []
     end
 
-    it "adds a row to the database" do
-      MoveRequest.add_new_row()
-      expect(MoveRequest.retrieve_all_data.length).to eq 1
-    end
-
     it "it adds a new row with data to the database" do
       MoveRequest.add_new_row("foo", "bar", "baz")
       expect(MoveRequest.exists?(query_params: 'foo')).to be_truthy
       expect(MoveRequest.exists?(ip_address: "bar")).to be_truthy
       expect(MoveRequest.exists?(returned_move: "baz")).to be_truthy
-    end
-
-    it "the returned resuls is identical to ActiveRecord's #all method" do
-      MoveRequest.add_new_row()
-      expect(MoveRequest.retrieve_all_data).to eq MoveRequest.all
     end
 
     it "it returns two values if the database has two rows" do

@@ -59,21 +59,21 @@ describe ComputerPlayersController do
       it 'has the correct query params string' do
         user_params = {board: '{"moves": [{"player_one":"5"}, {"player_two":"0"}]}'}
         get :get_move, params: user_params
-        move = MoveRequest.first
+        move = MoveRequest.retrieve_all_data.first
         expect(move.query_params).to eq "{\"moves\": [{\"player_one\":\"5\"}, {\"player_two\":\"0\"}]}"
       end
 
       it 'has the correct IP address' do
         user_params = {board: '{"moves": [{"player_one":"5"}, {"player_two":"0"}]}'}
         get :get_move, params: user_params
-        move = MoveRequest.first
+        move = MoveRequest.retrieve_all_data.first
         expect(move.ip_address).not_to eq nil
       end
 
       it 'has the correct move returned to the user' do
         user_params = {board: '{"moves": [{"player_one":"5"}, {"player_two":"0"}]}'}
         get :get_move, params: user_params
-        move = MoveRequest.first
+        move = MoveRequest.retrieve_all_data.first
         expect(move.returned_move).to eq "1"
       end
 
