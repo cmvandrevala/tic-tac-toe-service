@@ -1,8 +1,6 @@
-require 'date'
-
 class ComputerPlayersController < ApplicationController
   include ComputerPlayer
-  after_action :add_record_to_database
+  before_action :add_record_to_database
 
   def computer_move
     render json: {"move": computed_move} if query_params?
@@ -12,7 +10,7 @@ class ComputerPlayersController < ApplicationController
 
   def add_record_to_database
     if query_params?
-      MoveRequest.add_new_row(params[:board], request.remote_ip, computed_move, params[:client_name])
+      MoveRequest.add_new_row(params[:board], request.remote_ip, computed_move, params[:client_name], request.path)
     end
   end
 
