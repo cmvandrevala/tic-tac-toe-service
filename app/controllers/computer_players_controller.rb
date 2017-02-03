@@ -12,7 +12,7 @@ class ComputerPlayersController < ApplicationController
 
   def add_record_to_database
     if query_params?
-      MoveRequest.add_new_row(params[:board], request.remote_ip, computed_move, params[:client_name], request.original_url)
+      MoveRequest.add_new_row(params[:board], request.remote_ip, computed_move, params[:client_name], request.path)
     end
   end
 

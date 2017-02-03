@@ -25,4 +25,6 @@ feature "user retrieves running log data" do
     expect(page.body).to include "\"query_params\":\"Bob\",\"ip_address\":\"Mary\",\"returned_move\":\"Joe\",\"client_name\":\"Sam\""
   end
 
+  # xit "there are multiple rows with various clients and routes"
+
 end

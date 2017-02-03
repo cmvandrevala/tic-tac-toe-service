@@ -20,9 +20,8 @@ class MoveRequest < ApplicationRecord
     ActiveRecord::Base.connection.execute(sql)
   end
 
-  def self.endpoints_hit
-    output = []
-    sql = "SELECT client_name, COUNT(*) FROM move_requests GROUP BY client_name"
+  def self.endpoints_hit(route)
+    sql = "SELECT client_name, COUNT(*) FROM move_requests WHERE ROUTE = '#{route}' GROUP BY client_name, route"
     pg_result = ActiveRecord::Base.connection.execute(sql)
     fields = pg_result.fields
     pg_result.values.map do |value_set|

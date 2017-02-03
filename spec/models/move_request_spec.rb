@@ -68,18 +68,18 @@ describe MoveRequest do
   describe "#endpoints_hit" do
 
     it "returns no data if there are no endpoints hit" do
-      expect(MoveRequest.endpoints_hit.length).to eq 0
+      expect(MoveRequest.endpoints_hit("route").length).to eq 0
     end
 
     it "returns the count of one client" do
-      MoveRequest.add_new_row("foo", "bar", "baz", "quo", "root")
-      expect(MoveRequest.endpoints_hit.length).to eq 1
+      MoveRequest.add_new_row("foo", "bar", "baz", "quo", "route")
+      expect(MoveRequest.endpoints_hit("route").length).to eq 1
     end
 
     it "returns the count of two clients" do
-      MoveRequest.add_new_row("foo", "bar", "baz", "quo", "route")
-      MoveRequest.add_new_row("foo", "bar", "baz", "quib", "route")
-      expect(MoveRequest.endpoints_hit.length).to eq 2
+      MoveRequest.add_new_row("foo", "bar", "baz", "quo", "root")
+      MoveRequest.add_new_row("foo", "bar", "baz", "quib", "root")
+      expect(MoveRequest.endpoints_hit("root").length).to eq 2
     end
 
   end

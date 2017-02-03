@@ -6,18 +6,20 @@ class StatisticsController < ApplicationController
   end
 
   def endpoints_hit
-    render json: "{\"/api/computer_move\": #{endpoints}}"
+    routes = ['/api/computer_move', '/api/endpoints_hit', '/api/running_log']
+    output = routes.map { |route| {route => endpoints(route)} }
+    render json: {"endpoints_hit" => output}.to_json
   end
 
   private
 
-  def endpoints
-    MoveRequest.endpoints_hit.map do |endpoint|
+  def endpoints(route)
+    MoveRequest.endpoints_hit(route).map do |endpoint|
       {
         "client_name" => endpoint.client_name,
         "count" => endpoint.count
       }
-    end.to_json
+    end
   end
 
 end
