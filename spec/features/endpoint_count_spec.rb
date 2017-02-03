@@ -4,7 +4,7 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[]},{\"/api/endpoints_hit\":[]},{\"/api/running_log\":[]}]}"
+    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[]},{\"/api/endpoints_hit\":[{\"client_name\":\"\",\"count\":1}]}]}"
   end
 
   scenario "one user visits a different endpoint with no params" do
@@ -16,7 +16,7 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[]},{\"/api/endpoints_hit\":[]},{\"/api/running_log\":[]}]}"
+    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[]},{\"/api/endpoints_hit\":[{\"client_name\":\"\",\"count\":1}]}]}"
   end
 
   scenario "one user visits one endpoint with appropriate params" do
@@ -28,7 +28,7 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[{\"client_name\":\"John\",\"count\":1}]},{\"/api/endpoints_hit\":[]},{\"/api/running_log\":[]}]}"
+    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[{\"client_name\":\"John\",\"count\":1}]},{\"/api/endpoints_hit\":[{\"client_name\":\"\",\"count\":1}]}]}"
   end
 
   scenario "one user visits one endpoint multiple times" do
@@ -40,7 +40,7 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[{\"client_name\":\"Bob\",\"count\":13}]},{\"/api/endpoints_hit\":[]},{\"/api/running_log\":[]}]}"
+    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[{\"client_name\":\"Bob\",\"count\":13}]},{\"/api/endpoints_hit\":[{\"client_name\":\"\",\"count\":1}]}]}"
   end
 
   scenario "multiple users visit one endpoint" do
@@ -60,7 +60,11 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[{\"client_name\":\"Bob\",\"count\":7},{\"client_name\":\"Sam\",\"count\":2},{\"client_name\":\"Sarah\",\"count\":12}]},{\"/api/endpoints_hit\":[]},{\"/api/running_log\":[]}]}"
+    expect(page.body).to include "{\"endpoints_hit\":["
+    expect(page.body).to include "{\"/api/computer_move\":[{\"client_name\":\"Bob\",\"count\":7}"
+    expect(page.body).to include "{\"client_name\":\"Sam\",\"count\":2}"
+    expect(page.body).to include "{\"client_name\":\"Sarah\",\"count\":12}"
+    expect(page.body).to include "{\"/api/endpoints_hit\":[{\"client_name\":\"\",\"count\":1}]}]}"
   end
 
 end
