@@ -6,7 +6,7 @@ class StatisticsController < ApplicationController
   end
 
   def endpoints_hit
-    render json: "{\"endpoints\": #{endpoints}}"
+    render json: "{\"/api/computer_move\": #{endpoints}}"
   end
 
   private

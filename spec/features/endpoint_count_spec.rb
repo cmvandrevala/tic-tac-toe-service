@@ -4,7 +4,7 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints\": []}"
+    expect(page.body).to eq "{\"/api/computer_move\": []}"
   end
 
   scenario "one user visited the endpoint with no params" do
@@ -16,7 +16,7 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints\": []}"
+    expect(page.body).to eq "{\"/api/computer_move\": []}"
   end
 
   scenario "one user visited the endpoint with appropriate params" do
@@ -28,7 +28,7 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints\": [{\"client_name\":\"John\",\"count\":1}]}"
+    expect(page.body).to eq "{\"/api/computer_move\": [{\"client_name\":\"John\",\"count\":1}]}"
   end
 
   scenario "one user visited the endpoint multiple times" do
@@ -40,7 +40,7 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints\": [{\"client_name\":\"Bob\",\"count\":13}]}"
+    expect(page.body).to eq "{\"/api/computer_move\": [{\"client_name\":\"Bob\",\"count\":13}]}"
   end
 
   scenario "multiple users visit the site" do
@@ -60,7 +60,7 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints\": [{\"client_name\":\"Sarah\",\"count\":12},{\"client_name\":\"Sam\",\"count\":2},{\"client_name\":\"Bob\",\"count\":7}]}"
+    expect(page.body).to eq "{\"/api/computer_move\": [{\"client_name\":\"Sarah\",\"count\":12},{\"client_name\":\"Sam\",\"count\":2},{\"client_name\":\"Bob\",\"count\":7}]}"
   end
 
 end

@@ -9,13 +9,14 @@ class MoveRequest < ApplicationRecord
     end
   end
 
-  def self.add_new_row(query_params, ip_address, returned_move, client_name)
+  def self.add_new_row(query_params, ip_address, returned_move, client_name, route)
     sql = "INSERT INTO move_requests"\
-          "(created_at, updated_at, query_params, ip_address,"\
-          "returned_move, client_name) VALUES "\
+          "(created_at, updated_at, query_params, ip_address, "\
+          "returned_move, client_name, route) VALUES "\
           "('#{Time.now.getutc}', '#{Time.now.getutc}', "\
-          "\'#{query_params}\', '#{ip_address}', "\
-          "'#{returned_move}', '#{client_name}');"
+          "'#{query_params}', '#{ip_address}', "\
+          "'#{returned_move}', '#{client_name}', "\
+          "'#{route}');"
     ActiveRecord::Base.connection.execute(sql)
   end
 

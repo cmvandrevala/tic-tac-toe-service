@@ -8,7 +8,7 @@ feature "user retrieves running log data" do
   end
 
   scenario "there is one row in the database" do
-    MoveRequest.add_new_row("foo", "bar", "baz", "quo")
+    MoveRequest.add_new_row("foo", "bar", "baz", "quo", "route")
     visit '/api/running_log'
 
     expect(page).to have_http_status 200
@@ -16,8 +16,8 @@ feature "user retrieves running log data" do
   end
 
   scenario "there are multiple rows in the database" do
-    MoveRequest.add_new_row("foo", "bar", "baz", "quib")
-    MoveRequest.add_new_row("Bob", "Mary", "Joe", "Sam")
+    MoveRequest.add_new_row("foo", "bar", "baz", "quib", "route1")
+    MoveRequest.add_new_row("Bob", "Mary", "Joe", "Sam", "route1")
     visit '/api/running_log'
 
     expect(page).to have_http_status 200
