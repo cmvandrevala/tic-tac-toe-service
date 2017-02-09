@@ -4,7 +4,7 @@
 
 ## Background
 
-This is a toy application that I will use to learn about SOA during my apprenticeship at 8th Light. The Rails app will serve different types of data to various clients in a JSON format.
+This is a toy application that I will use to learn about SOA during my apprenticeship at 8th Light. The Rails app will serve different types of data to various clients in a JSON format. In order to practice using SQL, I am going to replace many of the ActiveRecord functions with raw SQL.
 
 ## Testing
 
