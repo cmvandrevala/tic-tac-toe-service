@@ -1,3 +1,5 @@
+require "computer_player"
+
 class ComputerPlayersController < ApplicationController
   include ComputerPlayer
   before_action :add_record_to_database
