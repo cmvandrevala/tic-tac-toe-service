@@ -1,13 +1,15 @@
 feature "the user counts the number of times an endpoint has been hit" do
 
   scenario "a user visits an endpoint" do
+    body = {endpoints_hit: [{"/api/computer_move" => []}, {"/api/endpoints_hit" => [{client_name: "", count: 1}]}]}
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[]},{\"/api/endpoints_hit\":[{\"client_name\":\"\",\"count\":1}]}]}"
+    expect(page.body).to eq JSON.generate(body)
   end
 
   scenario "one user visits a different endpoint with no params" do
+    body = {endpoints_hit: [{"/api/computer_move" => []}, {"/api/endpoints_hit" => [{client_name: "", count: 1}]}]}
     visit '/api/computer_move'
 
     expect(page).to have_http_status 204
@@ -16,22 +18,24 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[]},{\"/api/endpoints_hit\":[{\"client_name\":\"\",\"count\":1}]}]}"
+    expect(page.body).to eq JSON.generate(body)
   end
 
   scenario "one user visits one endpoint with appropriate params" do
+    body = {endpoints_hit: [{"/api/computer_move" => [{client_name: "John", count: 1}]}, {"/api/endpoints_hit" => [{client_name: "", count:1}]}]}
     visit '/api/computer_move?client_name=John&board={%22moves%22:%20[{%22player_one%22:%220%22}]}'
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"move\":1}"
+    expect(page.body).to eq JSON.generate({move: 1})
 
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[{\"client_name\":\"John\",\"count\":1}]},{\"/api/endpoints_hit\":[{\"client_name\":\"\",\"count\":1}]}]}"
+    expect(page.body).to eq JSON.generate(body)
   end
 
   scenario "one user visits one endpoint multiple times" do
+    body = {endpoints_hit: [{"/api/computer_move" => [{"client_name" => "Bob", "count" => 13}]}, {"/api/endpoints_hit" => [{"client_name" => "", "count" => 1}]}]}
 
     13.times do
       visit '/api/computer_move?client_name=Bob&board={%22moves%22:%20[{%22player_one%22:%220%22}]}'
@@ -40,7 +44,7 @@ feature "the user counts the number of times an endpoint has been hit" do
     visit "/api/endpoints_hit"
 
     expect(page).to have_http_status 200
-    expect(page.body).to eq "{\"endpoints_hit\":[{\"/api/computer_move\":[{\"client_name\":\"Bob\",\"count\":13}]},{\"/api/endpoints_hit\":[{\"client_name\":\"\",\"count\":1}]}]}"
+    expect(page.body).to eq JSON.generate(body)
   end
 
   scenario "multiple users visit one endpoint" do
